@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 Dataset = pd.read_csv("country_vaccinations.csv")
 
-def Plot(dataframe):
+def PlotLine(dataframe):
     
     # Plotando os graficos
     plt.style.use('seaborn-darkgrid')
@@ -18,6 +18,67 @@ def Plot(dataframe):
     plt.xlabel("Dias")
     plt.ylabel("Total vacinado")
     plt.show()
+
+def PlotBar(dataframe):
+    
+    
+    heights = []
+    
+    barName = ["Sputnik V", "Pfizer/BioNTech", "Pfizer/BioNTech, Sinopharm",
+               "Sinovac", "Moderna, Pfizer/BioNTech", "CNBG, Sinovac",
+               "Oxford/AstraZeneca, Pfizer/BioNTech", "Covaxin, Covishield", 
+               "Sinopharm"]
+    
+    A = 0
+    B = 0
+    C = 0
+    D = 0
+    E = 0
+    F = 0
+    G = 0
+    H = 0
+    I = 0
+    
+    for index in range(len(dataframe)):
+        if dataframe[0][index] == "Sputnik V":
+            A = A + 1
+        if dataframe[0][index] == "Pfizer/BioNTech":
+            B = B + 1
+        if dataframe[0][index] == "Pfizer/BioNTech, Sinopharm":
+            C = C + 1
+        if dataframe[0][index] == "Sinovac":
+            D = D + 1
+        if dataframe[0][index] == "Moderna, Pfizer/BioNTech":
+            E = E + 1
+        if dataframe[0][index] == "CNBG, Sinovac":
+            F = F + 1
+        if dataframe[0][index] == "Oxford/AstraZeneca, Pfizer/BioNTech":
+            G = G + 1
+        if dataframe[0][index] == "Covaxin, Covishield":
+            H = H + 1
+        if dataframe[0][index] == "Sinopharm":
+            I = I + 1
+
+    heights.append(A)
+    heights.append(B)
+    heights.append(C)
+    heights.append(D)
+    heights.append(E)
+    heights.append(F)
+    heights.append(G)
+    heights.append(H)
+    heights.append(I)
+    
+    y_pos = NP.arange(len(barName))
+    plt.style.use('seaborn-darkgrid')
+    plt.bar(y_pos, heights)
+    
+    # Rotacionando os nomes das barras para melhor visualização
+    plt.xticks(y_pos, barName, rotation = 90, color = "orange")
+    plt.yticks(color='orange')
+    plt.subplots_adjust(bottom = 0.4, top = 0.99)
+    plt.show()
+        
 
 def RegionDataframe(dataframe, countryRegion):
     
@@ -39,7 +100,7 @@ def RegionDataframe(dataframe, countryRegion):
     newDataframe = pd.DataFrame()
     
     for country in countriesNames:
-        print(country)
+        #print(country)
         newDataframe[country] = dataframe[country]
         
     # Adicionando coluna indexadora
@@ -89,16 +150,20 @@ def PlotPreprocessing(data, data2):
     
     vaccinatedDaily = []
     vaccinatedDailyDATE = []
+    vaccines = []
     
     for index in range(len(data)):
         vaccinatedDaily.append(data[index][1])
         vaccinatedDailyDATE.append(data[index][2])
-        
+        vaccines.append(data[index][3])
+
     dataframe1 = pd.DataFrame(vaccinatedDaily)
     dataframe2 = pd.DataFrame(vaccinatedDailyDATE)
+    dataframe3 = pd.DataFrame(vaccines)
 
     # Transpondo linhas e colunas para melhor manuseio    
-    dataframe1 = dataframe1.transpose()    
+    dataframe1 = dataframe1.transpose()
+    
     
     
     RenameColumns(dataframe1, countriesList)
@@ -110,14 +175,16 @@ def PlotPreprocessing(data, data2):
     westEuropeDataframe = RegionDataframe(dataframe1, "west-europe")
     asiaDataframe = RegionDataframe(dataframe1, "asia")
     middleEastDataframe = RegionDataframe(dataframe1, "middle-east")
+    """
+    PlotLine(americaDataframe)
+    PlotLine(eastEuropeDataframe)
+    PlotLine(westEuropeDataframe)
+    PlotLine(asiaDataframe)
+    PlotLine(middleEastDataframe)
+    """
+    PlotBar(dataframe3)
 
-    Plot(americaDataframe)
-    Plot(eastEuropeDataframe)
-    Plot(westEuropeDataframe)
-    Plot(asiaDataframe)
-    Plot(middleEastDataframe)
-
-    return dataframe1, dataframe2
+    return dataframe1, dataframe2, dataframe3
 countriesList = GetCoutriesList(Dataset)
 
 dataByCountry = []
@@ -125,6 +192,6 @@ dataByCountry = []
 for i in range(len(countriesList)):
     dataByCountry.append(DataCluster(Dataset, countriesList[i]))
     
-aaa, aa = PlotPreprocessing(dataByCountry, countriesList)
+dataframe1, dataframe2, dataframe3 = PlotPreprocessing(dataByCountry, countriesList)
 
 
