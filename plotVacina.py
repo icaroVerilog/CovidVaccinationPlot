@@ -5,6 +5,20 @@ import matplotlib.pyplot as plt
 
 Dataset = pd.read_csv("country_vaccinations.csv")
 
+def Plot(dataframe):
+    
+    # Plotando os graficos
+    plt.style.use('seaborn-darkgrid')
+    
+    for column in dataframe.drop("indexColumn", axis = 1):
+        plt.plot(dataframe["indexColumn"], dataframe[column], marker='', linewidth=1, alpha=0.9, label=column)
+ 
+    plt.legend(loc=2, ncol=2)
+    plt.title("Vacinação diária covid-19", loc='left', fontsize=12, fontweight=0, color='orange')
+    plt.xlabel("Dias")
+    plt.ylabel("Total vacinado")
+    plt.show()
+
 def RegionDataframe(dataframe, countryRegion):
     
     if countryRegion == "america":
@@ -14,13 +28,13 @@ def RegionDataframe(dataframe, countryRegion):
         countriesNames = ["Austria", "Belgium", "Denmark", "Finland", "France", "Germany", "Gibraltar", "Iceland", "Ireland", "Italy", "Luxembourg", "Malta", "Netherlands", "Norway", "Portugal", "Spain", "Sweden", "Switzerland", "United Kingdom"]
 
     elif countryRegion == "east-europe":
-        countriesNames = ["Bulgaria", "Croatia", "Czechia", "Estonia", "Greece", "Hungary", "Latvia", "Lithuania", "Poland", "Romania", "Russia", "Serbia", "Slovakia", "Slovenia"]
+        countriesNames = ["Bulgaria", "Croatia", "Czechia", "Estonia", "Greece", "Hungary", "Latvia", "Lithuania", "Poland", "Romania", "Serbia", "Slovakia", "Slovenia"]
         
     elif countryRegion == "middle-east":
-        countriesNames = ["Bahrain", "Cyprus", "Israel", "Kwait", "Oman", "Saudi Arabia", "Turkey", "United Arab Emirates"]
+        countriesNames = ["Bahrain", "Cyprus", "Israel", "Kuwait", "Oman", "Saudi Arabia", "United Arab Emirates"]
         
     elif countryRegion == "asia":
-        countriesNames = ["China", "India", "Singapore"]
+        countriesNames = ["China", "India"]
     
     newDataframe = pd.DataFrame()
     
@@ -28,8 +42,16 @@ def RegionDataframe(dataframe, countryRegion):
         print(country)
         newDataframe[country] = dataframe[country]
         
+    # Adicionando coluna indexadora
+    
+    newColumnValues = []
+    
+    for index in range(len(newDataframe.index)):
+        newColumnValues.append(index + 1)
+        
+    newDataframe["indexColumn"] = newColumnValues
+        
     return newDataframe
-
 def RenameColumns(database, names):
     newNames = []
     
@@ -37,12 +59,9 @@ def RenameColumns(database, names):
         newNames.append(name)
 
     database.columns = newNames
-    
-
 def GetCoutriesList(database):
     
-    
-    
+
     untratedCountries = database.iloc[:, 0].values
     countries = []
     
@@ -66,12 +85,10 @@ def DataCluster(database, country):
                 vaccinatedDailyDATE.append(database["date"][i])
     
     return totalVaccinated, vaccinatedDaily, vaccinatedDailyDATE, vaccine
-
 def PlotPreprocessing(data, data2):
     
     vaccinatedDaily = []
     vaccinatedDailyDATE = []
-    newColumnValue = []
     
     for index in range(len(data)):
         vaccinatedDaily.append(data[index][1])
@@ -83,9 +100,6 @@ def PlotPreprocessing(data, data2):
     # Transpondo linhas e colunas para melhor manuseio    
     dataframe1 = dataframe1.transpose()    
     
-    # Adicionando coluna indexadora
-    for index2 in range(len(dataframe1.index)):
-        newColumnValue.append(index2 + 1)
     
     RenameColumns(dataframe1, countriesList)
 
@@ -95,36 +109,15 @@ def PlotPreprocessing(data, data2):
     eastEuropeDataframe = RegionDataframe(dataframe1, "east-europe")
     westEuropeDataframe = RegionDataframe(dataframe1, "west-europe")
     asiaDataframe = RegionDataframe(dataframe1, "asia")
-    middEastDataframe = RegionDataframe(dataframe1, "middle-east")
-    
+    middleEastDataframe = RegionDataframe(dataframe1, "middle-east")
 
-    
-    dataframe1["x"] = newColumnValue
-    new = dataframe1.iloc[:, 54:58]
+    Plot(americaDataframe)
+    Plot(eastEuropeDataframe)
+    Plot(westEuropeDataframe)
+    Plot(asiaDataframe)
+    Plot(middleEastDataframe)
 
-
-    # Plotando os graficos
-    plt.style.use('seaborn-darkgrid')
-    palette = plt.get_cmap('Set1')
-    colorNum = 0
-    
-    """
-    for column in dataframe1.drop("x", axis = 1):
-        collorNum = collorNum + 1
-        plt.plot(dataframe1['x'], dataframe1[column], marker='', linewidth=1, alpha=0.9, label=column)
-    """
-    
-    for column in new.drop("x", axis = 1):
-        colorNum = colorNum + 1
-        plt.plot(new['x'], new[column], marker='o', linewidth=1, alpha=0.9, label=column, color = palette(colorNum))
- 
-    plt.legend(loc=2, ncol=2)
-    plt.title("Vacinação diária covid-19", loc='left', fontsize=12, fontweight=0, color='orange')
-    plt.xlabel("Dias")
-    plt.ylabel("Total vacinado")
-    plt.show()
-
-    return dataframe1, dataframe2, new, americaDataframe
+    return dataframe1, dataframe2
 countriesList = GetCoutriesList(Dataset)
 
 dataByCountry = []
@@ -132,6 +125,6 @@ dataByCountry = []
 for i in range(len(countriesList)):
     dataByCountry.append(DataCluster(Dataset, countriesList[i]))
     
-aaa, aa, a , america = PlotPreprocessing(dataByCountry, countriesList)
+aaa, aa = PlotPreprocessing(dataByCountry, countriesList)
 
 
