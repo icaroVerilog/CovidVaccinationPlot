@@ -1,27 +1,26 @@
-import pandas as pd
+import pandas as PD
 import numpy as NP
-import seaborn as sns
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as PLT
 
-Dataset = pd.read_csv("country_vaccinations.csv")
+Dataset = PD.read_csv("country_vaccinations.csv")
 
-def PlotLine(dataframe):
+def DailyVacPlot(dataframe):
     
     # Plotando os graficos
-    plt.style.use('seaborn-darkgrid')
+    PLT.style.use('seaborn-darkgrid')
     
     for column in dataframe.drop("indexColumn", axis = 1):
-        plt.plot(dataframe["indexColumn"], dataframe[column], marker='', linewidth=1, alpha=0.9, label=column)
+        PLT.plot(dataframe["indexColumn"], dataframe[column], marker='', linewidth=1, alpha=0.9, label=column)
  
-    plt.legend(loc=2, ncol=2)
-    plt.title("Vacinação diária covid-19", loc='left', fontsize=12, fontweight=0, color='orange')
-    plt.xlabel("Dias")
-    plt.ylabel("Total vacinado")
-    plt.show()
+    PLT.legend(loc=2, ncol=2)
+    PLT.xlabel("Dias")
+    PLT.ylabel("Total vacinado")
+    PLT.show()
 
-def PlotBar(dataframe):
-    
-    
+def VacUsagePlot(dataframe):
+    """
+    esta função está mal feita para caralho, mas a preguiça venceu ¯\_(ツ)_/¯
+    """
     heights = []
     
     barName = ["Sputnik V", "Pfizer/BioNTech", "Pfizer/BioNTech, Sinopharm",
@@ -70,14 +69,14 @@ def PlotBar(dataframe):
     heights.append(I)
     
     y_pos = NP.arange(len(barName))
-    plt.style.use('seaborn-darkgrid')
-    plt.bar(y_pos, heights)
+    PLT.style.use('seaborn-darkgrid')
+    PLT.bar(y_pos, heights)
     
     # Rotacionando os nomes das barras para melhor visualização
-    plt.xticks(y_pos, barName, rotation = 90, color = "orange")
-    plt.yticks(color='orange')
-    plt.subplots_adjust(bottom = 0.4, top = 0.99)
-    plt.show()
+    PLT.xticks(y_pos, barName, rotation = 90, color = "orange")
+    PLT.yticks(color='orange')
+    PLT.subplots_adjust(bottom = 0.4, top = 0.99)
+    PLT.show()
         
 
 def RegionDataframe(dataframe, countryRegion):
@@ -97,7 +96,7 @@ def RegionDataframe(dataframe, countryRegion):
     elif countryRegion == "asia":
         countriesNames = ["China", "India"]
     
-    newDataframe = pd.DataFrame()
+    newDataframe = PD.DataFrame()
     
     for country in countriesNames:
         #print(country)
@@ -157,9 +156,9 @@ def PlotPreprocessing(data, data2):
         vaccinatedDailyDATE.append(data[index][2])
         vaccines.append(data[index][3])
 
-    dataframe1 = pd.DataFrame(vaccinatedDaily)
-    dataframe2 = pd.DataFrame(vaccinatedDailyDATE)
-    dataframe3 = pd.DataFrame(vaccines)
+    dataframe1 = PD.DataFrame(vaccinatedDaily)
+    dataframe2 = PD.DataFrame(vaccinatedDailyDATE)
+    dataframe3 = PD.DataFrame(vaccines)
 
     # Transpondo linhas e colunas para melhor manuseio    
     dataframe1 = dataframe1.transpose()
@@ -175,14 +174,14 @@ def PlotPreprocessing(data, data2):
     westEuropeDataframe = RegionDataframe(dataframe1, "west-europe")
     asiaDataframe = RegionDataframe(dataframe1, "asia")
     middleEastDataframe = RegionDataframe(dataframe1, "middle-east")
-    """
-    PlotLine(americaDataframe)
-    PlotLine(eastEuropeDataframe)
-    PlotLine(westEuropeDataframe)
-    PlotLine(asiaDataframe)
-    PlotLine(middleEastDataframe)
-    """
-    PlotBar(dataframe3)
+    
+    DailyVacPlot(americaDataframe)
+    DailyVacPlot(eastEuropeDataframe)
+    DailyVacPlot(westEuropeDataframe)
+    DailyVacPlot(asiaDataframe)
+    DailyVacPlot(middleEastDataframe)
+    
+    VacUsagePlot(dataframe3)
 
     return dataframe1, dataframe2, dataframe3
 countriesList = GetCoutriesList(Dataset)
