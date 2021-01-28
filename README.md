@@ -29,6 +29,24 @@ Os primeiros gráficos apresentados são relativos a vacinação diária
 
 ![AmericaGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoAmerica.png?raw=true)
 
+
 ### Ásia
 
 ![AsiaGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoAsia.png?raw=true)
+
+
+### Oriente médio
+
+![Middle-eastGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoOrienteMedio.png?raw=true)
+
+
+### Leste europeu
+
+![EasteuropeGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoLesteEuropeu.png?raw=true)
+
+
+### Oeste europeu
+
+[WesteuropeGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoOesteEuropeu.png?raw=true)
+
+
