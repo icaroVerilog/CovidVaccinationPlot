@@ -47,6 +47,13 @@ Os primeiros gráficos apresentados são relativos a vacinação diária
 
 ### Oeste europeu
 
-[WesteuropeGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoOesteEuropeu.png?raw=true)
+![WesteuropeGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoOesteEuropeu.png?raw=true)
+
+
+Também por meio da análise, podemos observar com qual vacina, ou quais vacinas foram ultilizadas nas respectivas campanhas de vacinação
+
+## Vacinas ultilizadas
+
+![VaccinesGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoVacinas.png?raw=true)
 
 
