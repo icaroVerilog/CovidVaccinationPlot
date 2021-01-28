@@ -56,4 +56,3 @@ Também por meio da análise, podemos observar com qual vacina, ou quais vacinas
 
 ![VaccinesGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoVacinas.png?raw=true)
 
-
