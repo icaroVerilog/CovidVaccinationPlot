@@ -1,4 +1,4 @@
-# Análise de dados sobre a vacinação contra a sars-cov 2
+# Análise de dados sobre a vacinação contra sars-cov 2
 
 Análise exploratória de um dataset contendo dados sobre a vacinação contra o vírus sars-cov 2
 
