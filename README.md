@@ -26,4 +26,4 @@ Por motivos de visualização, separamos os gráficos em continentes e subcontin
 Os primeiros gráficos apresentados são relativos a vacinação diária
 
 - América
-- 
+![AmericaGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoAmerica.png?raw=true)
