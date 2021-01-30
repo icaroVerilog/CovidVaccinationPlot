@@ -56,3 +56,7 @@ Também por meio da análise, podemos observar com qual vacina, ou quais vacinas
 
 ![VaccinesGraphic](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoVacinas.png?raw=true)
 
+
+## Pessoas vacinadas a cada 100 habitantes
+
+![GraficoVacinado100](https://github.com/IcaroM-CdC/CovidVaccinationPlot/blob/main/Gr%C3%A1ficos/GraficoVacinado100.png?raw=true)

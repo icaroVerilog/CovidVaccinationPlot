@@ -68,6 +68,7 @@ def VacUsagePlot(dataframe):
     heights.append(H)
     heights.append(I)
     
+    
     y_pos = NP.arange(len(barName))
     PLT.style.use('seaborn-darkgrid')
     PLT.bar(y_pos, heights)
@@ -78,6 +79,22 @@ def VacUsagePlot(dataframe):
     PLT.subplots_adjust(bottom = 0.4, top = 0.99)
     PLT.show()
         
+
+def VacPerHundredPlot(dataframe, countriesList):
+    
+    heights = dataframe[0].values.tolist()
+
+    
+    y_pos = NP.arange(len(countriesList))
+    PLT.style.use("seaborn-darkgrid")
+    PLT.bar(y_pos, heights)
+    
+    # Rotacionando os nomes das barras para melhor visualização
+    PLT.xticks(y_pos, countriesList, rotation = 90, color = "orange")
+    PLT.yticks(color='orange')
+    PLT.subplots_adjust(bottom = 0.4, top = 0.99)
+    PLT.show()
+    
 
 def RegionDataframe(dataframe, countryRegion):
     
@@ -150,8 +167,10 @@ def PlotPreprocessing(data, data2):
     vaccinatedDaily = []
     vaccinatedDailyDATE = []
     vaccines = []
+    vaccinatedPerHundred = []
     
     for index in range(len(data)):
+        vaccinatedPerHundred.append(data[index][0])
         vaccinatedDaily.append(data[index][1])
         vaccinatedDailyDATE.append(data[index][2])
         vaccines.append(data[index][3])
@@ -159,6 +178,7 @@ def PlotPreprocessing(data, data2):
     dataframe1 = PD.DataFrame(vaccinatedDaily)
     dataframe2 = PD.DataFrame(vaccinatedDailyDATE)
     dataframe3 = PD.DataFrame(vaccines)
+    dataframe4 = PD.DataFrame(vaccinatedPerHundred)
 
     # Transpondo linhas e colunas para melhor manuseio    
     dataframe1 = dataframe1.transpose()
@@ -183,7 +203,10 @@ def PlotPreprocessing(data, data2):
     
     VacUsagePlot(dataframe3)
 
-    return dataframe1, dataframe2, dataframe3
+
+    VacPerHundredPlot(dataframe4, countriesList)    
+
+    return dataframe1, dataframe2, dataframe3, dataframe4
 countriesList = GetCoutriesList(Dataset)
 
 dataByCountry = []
@@ -191,6 +214,6 @@ dataByCountry = []
 for i in range(len(countriesList)):
     dataByCountry.append(DataCluster(Dataset, countriesList[i]))
     
-dataframe1, dataframe2, dataframe3 = PlotPreprocessing(dataByCountry, countriesList)
+dataframe1, dataframe2, dataframe3, dataframe4 = PlotPreprocessing(dataByCountry, countriesList)
 
 
